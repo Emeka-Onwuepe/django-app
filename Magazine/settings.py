@@ -156,4 +156,4 @@ AWS_S3_OBJECT_PARAMETERS = {
 STATICFILES_STORAGE = "Magazine.aws_storage.StaticStorage"
 
 
-django_heroku.settings(locals())
+# django_heroku.settings(locals())
