@@ -154,6 +154,6 @@ AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
 AWS_S3_OBJECT_PARAMETERS = {
     'CacheControl': 'max-age=86400',
 }
-# STATICFILES_STORAGE = "Magazine.aws_storage.StaticStorage"
+STATICFILES_STORAGE = "Magazine.aws_storage.StaticStorage"
 
 django_heroku.settings(locals())
