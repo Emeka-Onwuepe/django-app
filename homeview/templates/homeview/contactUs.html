@@ -1,0 +1,61 @@
+{% extends 'homeview/homeview.html' %} {% block meta_tags %}
+<title>ILLUMEPEDIA</title>
+<meta name="description" content="" />
+<meta name="keywords" content=" " /> {% for publisher in article.publisher.all %}
+<meta name="author" content=" " /> {% endfor %} {% endblock meta_tags %} {% block sideNav %}
+<h3 id="">SECTIONS</h3>
+<ul id="sideNavUL">
+    {% for section in sections %}
+    <li><a class="a" href="{% url 'homeview:sectionView' section %}">{{section}}</a></li>
+    {% endfor%}
+</ul>
+{% endblock sideNav %} {% block mainHeading %}
+<div id="mainhead" class="mainhead">
+    <h1 id="mainHeading">CONTACT US</h1>
+</div>
+{% endblock mainHeading %} {% block main %}
+<fieldset>
+
+    {% if messages %} {% for message in messages %}
+    <p> {{message}}</p>
+    {% endfor %} {% endif %}
+
+
+    <form id="contactform" action="{% url 'homeview:sendEmailView' %}" method="post">
+        {% csrf_token %}
+        <label for="full_name">Full Name</label>
+        <input type="text" name="full_name" class="contactInput" id="full_name" placeholder="please enter your full name" required>
+        <p id="full_nameer"></p>
+        <label for="email">Email</label>
+        <input type="email" name="email" class="contactInput" id="email" placeholder="please enter your email address" required>
+        <p id="emailer"></p>
+        <label for="phone_number">Phone Number</label>
+        <input type="text" name="phone_number" class="contactInput" id="phone_number" placeholder="please enter your phone number" required>
+        <p id="phone_numberer"></p>
+        <label for="subject">Subject</label>
+        <input type="text" name="subject" class="contactInput" id="subject" placeholder="Subject" required>
+        <p id="subjecter"></p>
+        <label for="message">Message</label>
+        <p id="messageer"></p>
+        <textarea name="message" class="contactInput" id="message" cols="" rows="5" placeholder="Let's hear from you" required></textarea> {% if messages %} {% for message in messages %}
+        <p style="color: red">{{ message }}</p>
+        {% endfor %} {% endif %}
+        <button style="background-color: gray" type="submit" name="submit" class="submitButton" disabled id="submit">SEND</button>
+        <p class="help">The above button will only be clickable when there is no empty field and no error in any field. </p>
+    </form>
+</fieldset>
+{% endblock main %} {% block ads %} {% endblock ads %} {% block mostviewed %}
+<div id="" class="articleInnerBox" style="clear:both;background-color:#056fb6">
+    <h2 style="text-align:center;color:#f9f9f9;text-shadow: 2px 1px black;">Most Viewed Articles</h2>
+    {% for article in mostviewed %} {% if article.publish %}
+    <section class="articleDisplayBox">
+        <h3><a href="{% url 'homeview:articleView' article.id article.title_slug %}">{{article}}</a></h3>
+        {{article.bodySnippet|safe}}
+        <p>Published By {% for publisher in article.publisher.all %}
+            <a href="">{{publisher}} </a> {% endfor %}
+        </p>
+        <p class="pub_date">{{article.mod_date}}</p>
+    </section>
+    {% endif %} {% endfor %}
+</div>
+{% endblock mostviewed %} {% block news %} {% endblock news %}

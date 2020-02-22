@@ -1,0 +1,91 @@
+{% extends 'publisher/register.html' %} {% block nav %}
+<form action="{% url 'publisher:publisherView' user.username %}" method="post">
+    {% csrf_token %}
+    <button type="submit">Welcome Page</button>
+</form>
+<form action="{% url 'publisher:controlView' user.username %}" method="post">
+    {% csrf_token %}
+    <button type="submit">Control View</button>
+</form>
+<form action="{% url 'publisher:editView' user.username article.id %}" method="post">
+    {% csrf_token %}
+    <button type="submit">Edit</button>
+</form>
+<form action="{% url 'login:logoutView' %}" method="post">
+    {% csrf_token %}
+    <button type="submit">Sign Out</button>
+</form>
+{% endblock nav %} {% block main %}
+<article class="article" style="margin-top: 135px">
+    {% if messages %} {% for message in messages %}
+    <p style="color: green">{{ message }}</p>
+    {% endfor %} {% endif %}
+    <h1 id="mainHeading" style="padding-bottom: 30px">{{article.title}}</h1>
+    {% if article.image %}
+    <figure class="">
+        <img src="{{article.image.url}}" alt="">
+        <figcaption><em>Image Source: {{article.image_source}}</em></figcaption>
+    </figure>
+    {% endif %}
+    <section>
+        <h2>{{article.sub_heading}}</h2>
+        {{article.body_text|safe}}
+    </section>
+    {% for section in sections %}
+    <h3>{{section.sub_heading}}</h3>
+    {% if section.Sub_section_image %}
+    <figure class="">
+        <img src="{{section.Sub_section_image.url}}" alt="">
+        <figcaption><em>Image Source: {{section.image_source}}</em></figcaption>
+    </figure>
+    {% endif %}
+    <section>
+        {{section.body_text|safe}}
+    </section>
+    {% endfor %} {% for publisher in article.publisher.all %}
+    <p class="Pub_discription">{{publisher.description}}</p>
+    {% endfor %}
+    <a target="blank" href="{% url 'homeview:articleView' article.id article.title_slug %}">VIEW IN MAIN SITE</a>
+</article>
+{% if article.publish %}
+<form action="{% url 'publisher:articleWithdrawView' article.id  %}" method="post">
+    {% csrf_token %}
+    <button class="submitButton publishButton" type="submit" onclick="return confirm('Are you sure you want to withdraw this article ?')">Withdraw</button>
+</form>
+
+{% else %} {% if form %} {% if article.image %}
+<div class="publishbox">
+    <form action="{% url 'publisher:publishView' article.id article.title_slug %}" method="post">
+        {% csrf_token %} {{form}}
+        <button class="submitButton publishButton" type="submit">Publish</button>
+    </form>
+</div>
+{% else %}
+<p class="help">This article is not suitable for publication. Please, edit and ensure you upload an image</p>
+{% endif %} {% endif %} {% endif %}
+<script>
+    hidePublishButton()
+
+    function hidePublishButton() {
+        let checkBox = document.querySelector("#id_publish")
+        let button = document.querySelector(".publishButton")
+        if (checkBox.checked) {
+            button.disabled = false
+            button.style.backgroundColor = "#0978c6"
+        } else {
+            button.disabled = true
+            button.style.backgroundColor = "gray";
+        }
+        checkBox.addEventListener("change", () => {
+            if (checkBox.checked) {
+                button.disabled = false
+                button.style.backgroundColor = "#0978c6"
+            } else {
+                button.disabled = true
+                button.style.backgroundColor = "gray";
+            }
+        })
+
+    }
+</script>
+{% endblock main %}

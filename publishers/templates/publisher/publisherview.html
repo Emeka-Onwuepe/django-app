@@ -1,0 +1,33 @@
+{% extends 'publisher/register.html' %} {% block nav %}
+<form action="{% url 'publisher:editProfile' %}" method="post">
+    {% csrf_token %}
+    <button type="submit">Edit Profile</button>
+</form>
+<form action="{% url 'publisher:controlView' user.username %}" method="post">
+    {% csrf_token %}
+    <button type="submit">Control View</button>
+</form>
+<form action="{% url 'login:logoutView' %}" method="post">
+    {% csrf_token %}
+    <button type="submit">Sign Out</button>
+</form>
+{% endblock nav %} {% block main %} {% if messages %} {% for message in messages %}
+<p style="color: green">{{ message }}</p>
+{% endfor %} {% endif %}
+<strong>
+    <p> Welcome {{user.first_name}} {{user.last_name}}.</p>
+</strong>
+<form action="{% url 'publisher:articleCreateView' user.username %}" method="post">
+    <fieldset style="margin-top: 20px">
+        <legend>CREATE A NEW ARTICLE</legend>
+        {% csrf_token %} {% for field in form %}
+        <div class="formfield">
+            {{field.errors}} {{field.label_tag}} {{field}} {% if field.help_text %}
+            <p class="help">{{field.help_text|safe}}</p>
+            {% endif %}
+        </div>
+        {% endfor %}
+        <input class="submitButton" type="submit" value="create">
+    </fieldset>
+</form>
+{% endblock main %}

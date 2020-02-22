@@ -1,0 +1,1 @@
+web: gunicorn MAGAZINE.wsgi --log-file -

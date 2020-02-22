@@ -1,0 +1,46 @@
+{% extends 'homeview/homeview.html' %} {% block meta_tags %}
+<title>ILLUMEPEDIA</title>
+<meta name="description" content=" " />
+<meta name="keywords" content=" " />
+<meta name="author" content="Emeka Casper Onwuepe " /> {% endblock meta_tags %} {% block sideNav %}
+<h3 id="">ARTICLES ON {{section}}</h3>
+<input type="text" id="SearchInput" onkeyup="SearchFunction()" placeholder="Search topics" id="myInput">
+<ul id="sideNavUL">
+    {% for articles in section.article_set.all %} {% if articles.publish %}
+    <li><a class="a" href="{% url 'homeview:articleView' articles.id articles.title_slug %}">{{articles}}</a></li>
+    {% endif %} {% endfor %}
+</ul>
+{% endblock sideNav %} {% block mainHeading %}
+<div id="mainhead" class="mainhead">
+    <h1 id="mainHeading">{{section}}</h1>
+</div>
+{% endblock mainHeading %} {% block main %}
+<div class="articleBox">
+    <div class="articleInnerBox">
+        {% for article in section.article_set.all %} {% if article.publish %}
+        <section class="articleDisplayBox">
+            <h3><a href="{% url 'homeview:articleView' article.id article.title_slug %}">{{article}}</a></h3>
+            <img class="" src="{{article.image.url}}" alt=""> {{article.bodySnippet|safe}}
+            <p>Published By {% for publisher in article.publisher.all %}
+                <a href="">{{publisher}} </a> {% endfor %}
+            </p>
+            <p class="pub_date">{{article.mod_date}}</p>
+        </section>
+        {% endif %} {% endfor %}
+    </div>
+</div>
+{% endblock main %} {% block ads %} {% endblock ads %} {% block mostviewed %}
+<div id="" class="articleInnerBox" style="clear:both;background-color:#056fb6">
+    <h2 style="text-align:center;color:#f9f9f9;text-shadow: 2px 1px black;">Most Viewed Articles</h2>
+    {% for article in mostviewed %} {% if article.publish %}
+    <section class="articleDisplayBox">
+        <h3><a href="{% url 'homeview:articleView' article.id article.title_slug %}">{{article}}</a></h3>
+        <img class="" src="{{article.image.url}}" alt=""> {{article.bodySnippet|safe}}
+        <p>Published By {% for publisher in article.publisher.all %}
+            <a href="">{{publisher}} </a> {% endfor %}
+        </p>
+        <p class="pub_date">{{article.mod_date}}</p>
+    </section>
+    {% endif %} {% endfor %}
+</div>
+{% endblock mostviewed %} {% block news %} {% endblock news %}

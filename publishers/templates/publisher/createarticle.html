@@ -1,0 +1,73 @@
+{% extends 'publisher/register.html' %} {% block nav %}
+<form action="{% url 'login:logoutView' %}" method="post">
+    {% csrf_token %}
+    <button type="submit">Sign Out</button>
+</form>
+<form action="{% url 'publisher:controlView' user.username %}" method="post">
+    {% csrf_token %}
+    <button type="submit">Control View</button>
+</form>
+<form action="{% url 'publisher:publisherView' user.username %}" method="post">
+    {% csrf_token %}
+    <button type="submit">Welcome Page</button>
+</form>
+{% endblock nav %} {% block main %}
+<div id="buttonDiv">
+    <button type="button" data-command="bold" class="tool-btn"><img class="intLink" title="Bold" src="data:image/gif;base64,R0lGODlhFgAWAID/AMDAwAAAACH5BAEAAAAALAAAAAAWABYAQAInhI+pa+H9mJy0LhdgtrxzDG5WGFVk6aXqyk6Y9kXvKKNuLbb6zgMFADs=" />
+    </button>
+    <button type="button" data-command="insertUnorderedLIst" class="tool-btn"><img class="intLink" title="Bullet" src="data:image/gif;base64,R0lGODlhFgAWAMIGAAAAAB1ChF9vj1iE33mOrqezxv///////yH5BAEAAAcALAAAAAAWABYAAAMyeLrc/jDKSesppNhGRlBAKIZRERBbqm6YtnbfMY7lud64UwiuKnigGQliQuWOyKQykgAAOw==" />
+    </button>
+    <button type="button" data-command="insertOrderedList" class="tool-btn"><img class="intLink" title="Numbering" src="data:image/gif;base64,R0lGODlhFgAWAMIGAAAAADljwliE35GjuaezxtHa7P///////yH5BAEAAAcALAAAAAAWABYAAAM2eLrc/jDKSespwjoRFvggCBUBoTFBeq6QIAysQnRHaEOzyaZ07Lu9lUBnC0UGQU1K52s6n5oEADs=" />
+    </button>
+    <button type="button" data-command="justifyLeft" class="tool-btn"><img class="intLink" title="Left align" src="data:image/gif;base64,R0lGODlhFgAWAID/AMDAwAAAACH5BAEAAAAALAAAAAAWABYAQAIghI+py+0Po5y02ouz3jL4D4JMGELkGYxo+qzl4nKyXAAAOw==" />
+    </button>
+    <button type="button" data-command="justifyCenter" class="tool-btn"><img class="intLink" title="Center align" src="data:image/gif;base64,R0lGODlhFgAWAID/AMDAwAAAACH5BAEAAAAALAAAAAAWABYAQAIfhI+py+0Po5y02ouz3jL4D4JOGI7kaZ5Bqn4sycVbAQA7" />
+    </button>
+    <button type="button" data-command="justifyRight" class="tool-btn"><img class="intLink" title="Right align" src="data:image/gif;base64,R0lGODlhFgAWAID/AMDAwAAAACH5BAEAAAAALAAAAAAWABYAQAIghI+py+0Po5y02ouz3jL4D4JQGDLkGYxouqzl43JyVgAAOw==" />
+    </button>
+    <button type="button" data-command="italic" class="tool-btn"><img class="intLink" title="Italic" src="data:image/gif;base64,R0lGODlhFgAWAKEDAAAAAF9vj5WIbf///yH5BAEAAAMALAAAAAAWABYAAAIjnI+py+0Po5x0gXvruEKHrF2BB1YiCWgbMFIYpsbyTNd2UwAAOw==" />
+    </button>
+    <button type="button" data-command="underline" class="tool-btn"><img class="intLink" title="Underline"  src="data:image/gif;base64,R0lGODlhFgAWAKECAAAAAF9vj////////yH5BAEAAAIALAAAAAAWABYAAAIrlI+py+0Po5zUgAsEzvEeL4Ea15EiJJ5PSqJmuwKBEKgxVuXWtun+DwxCCgA7" />
+    </button>
+    <button type="button" data-command="strikeThrough" class="tool-btn"><strong><strike>abc</strike></strong></button>
+    <button type="button" data-command="subscript" class="tool-btn"><strong>X <sup><span style="font-size: 10px">2</span></sup></strong> </button>
+    <button type="button" data-command="superscript" class="tool-btn"><strong>X <sub><span style="font-size: 10px">2</span></sub></strong> </button>
+    <button type="button" data-command="createLInk" class="tool-btn">Add Link</button>
+    <button type="button" data-command="unlink" class="tool-btn">UnLink</button>
+    <select id="heading">
+        <option value="">Heading</option>
+        <option value="h3">H3</option>
+        <option value="h4">H4</option>
+        <option value="h5">H5</option>
+        <option value="h6">H6</option>
+    </select>
+</div>
+<form action="{% url 'publisher:articleCreationView' user.username article.id %}" enctype="multipart/form-data" method="post">
+    <fieldset>
+        <legend>CREATE A NEW ARTICLE</legend>
+        {% csrf_token %} {% for field in form %}
+        <div class=" formfield ">
+            {{field.errors}} {{field.label_tag}} {{field}} {% if field.help_text %}
+            <p class="help ">{{field.help_text|safe}}</p>
+            {% endif %}
+        </div>
+        {% endfor %} {{sectionsForm.management_form}} {% for form in sectionsForm %}
+        <div class="subsection ">
+            <h2>Article Sub Section</h2>
+            {% for field in form %}
+            <div class="formfield sub_section ">
+                {{field.errors}} {{field.label_tag}} {{field}}
+            </div>
+            {% endfor %}
+        </div>
+        {% endfor %}
+        <div id="addsection">
+        </div>
+        <button class="submitButton" type="submit " onclick="return processData() ">POST</button>
+    </fieldset>
+</form>
+<form action="javascript:void(0) " method=" ">
+    {% csrf_token %}
+    <button id='addSection' type="submit ">Add Sub Section</button>
+</form>
+{% endblock main %}

@@ -1,0 +1,82 @@
+{% load static %} {% load static from staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="{% static 'CSS/publishingdesign.css' %}">
+    <link rel="shortcut icon" href="{% static 'CSS/logo.png' %}" type="image/png">
+    <link rel="apple-touch-icon" href="{% static 'CSS/logo.png' %}">
+    <link rel="icon" href="{% static 'CSS/logo.png' %}" type="image/png">
+    <title>ILLUMEPEDIA</title>
+    <meta name="author" content="Emeka Casper Onwuepe " />
+</head>
+
+<body>
+    <div class="Bigwrapper">
+        <header>
+            <section class="menu">
+                <div id="logo-div"> <img class="logo" src="{% static 'CSS/logo.png' %}" alt="logo" width="100%"> </div>
+                <h3 class="fixing">ILLUMEPEDIA</h3>
+                <nav id="nav" class="nav">
+                    {% block nav %}
+                    <form action="{% url 'login:logoutView' %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit">LOGIN</button>
+                    </form>
+                    {% endblock nav %}
+                </nav>
+            </section>
+        </header>
+        <main>
+            {% block main %}
+            <fieldset style="margin-top:150px">
+                <legend>REGISTER AS A PUBLISHER</legend>
+                <form action="{% url 'publisher:register' %}" method="post">
+                    {% csrf_token %} {% for field in form %}
+                    <div class="formfield">
+                        {{field.errors}} {{field.label_tag}} {{field}} {% if field.help_text %}
+                        <p class="help">{{field.help_text|safe}}</p>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                    <div id="extradata">
+                        <label for="section" style="display: block;padding-top:5px">Select Section</label>
+                        <select name="section" id="section">
+                                    {% for section in sections  %}
+                                    <option value="{{section.id}}">{{section}}</option>
+                                    {% endfor %}
+                                </select>
+                        <label for="description" style="display: block;padding-top:5px">Describe Yourself</label>
+                        <textarea name="description" maxlength="150" id="" cols="" rows="3" required></textarea>
+                        <ul>
+                            <li>Describe yourself with a third person pronoun starting with your full name.</li>
+                            <li> It should not be more than 150 letters</li>
+                            <li>This will be displayed below all your articles</li>
+                            <li>You can add any of your social media handle</li>
+                        </ul>
+                    </div>
+
+                    <input class="submitButton" type="submit" value="SIGN UP">
+                </form>
+            </fieldset>
+            {% endblock main %}
+        </main>
+
+        <div id="backToTop" class="backToTop">
+            <a href="#">&#10094;</a>
+        </div>
+
+        {% block footer %}
+        <footer>
+            <p id="footer"> Copyright &copy; <span id="footerdate" style="padding: 0%"></span>. All rights reserved. Illumepedia.com <br/> Designed by Emeka Onwuepe. </p>
+        </footer>
+        {% endblock footer %}
+
+    </div>
+    <script src="{% static 'javascript/publishingview.js' %}"></script>
+</body>
+
+</html>

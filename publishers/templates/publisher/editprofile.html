@@ -1,0 +1,41 @@
+{% extends 'publisher/register.html' %} {% block nav %}
+<form action="{% url 'publisher:publisherView' user.username %}" method="post">
+    {% csrf_token %}
+    <button type="submit">Welcome Page</button>
+</form>
+<form action="{% url 'publisher:controlView' user.username %}" method="post">
+    {% csrf_token %}
+    <button type="submit">Control View</button>
+</form>
+<form action="{% url 'login:logoutView' %}" method="post">
+    {% csrf_token %}
+    <button type="submit">Sign Out</button>
+</form>
+{% endblock nav %} {% block main %}
+<strong><p> Welcome {{user.first_name}} {{user.last_name}}.</p></strong>
+<form action="{% url 'publisher:editProfilePro'%}" method="post">
+    <fieldset style="margin-top: 20px">
+        <legend>UPDATE YOUR PROFILE</legend>
+        {% csrf_token %} {% for field in userform %}
+        <div class="formfield">
+            {{field.errors}} {{field.label_tag}} {{field}} {% if field.help_text %}
+            <p class="help">{{field.help_text|safe}}</p>
+            {% endif %}
+        </div>
+        {% endfor %} {% for field in publisherform %}
+        <div class="formfield">
+            {{field.errors}} {{field.label_tag}} {{field}} {% if field.help_text %}
+            <p class="help">{{field.help_text|safe}}</p>
+            {% endif %}
+        </div>
+        {% endfor %}
+        <ul id="extradata">
+            <li>Describe yourself with a third person pronoun starting with your full name.</li>
+            <li> It should not be more than 150 letters</li>
+            <li>This will be displayed below all your articles</li>
+            <li>You can add any of your social media handle</li>
+        </ul>
+        <input class="submitButton" type="submit" value="UPDATE">
+    </fieldset>
+</form>
+{% endblock main %}
