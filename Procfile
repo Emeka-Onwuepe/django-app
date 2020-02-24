@@ -1,1 +1,1 @@
-web: gunicorn Magazine.wsgi
+web: gunicorn Magazine.wsgi --log-file -
