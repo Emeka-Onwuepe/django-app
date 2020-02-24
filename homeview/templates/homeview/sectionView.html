@@ -1,7 +1,12 @@
 {% extends 'homeview/homeview.html' %} {% block meta_tags %}
 <title>ILLUMEPEDIA</title>
-<meta name="description" content=" " />
+<meta name="description" content="Article on {{section}}. Illuminate your mind with valid data, knowledge has no bound." />
 <meta name="keywords" content=" " />
+<meta property="og:url" content="{{request.build_absolute_uri}}" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Illumepedia" />
+<meta property="og:description" content="Article on {{section}}. Illuminate your mind with valid data, knowledge has no bound." />
+<meta property="og:image" content="{% static 'CSS/logo.png' %}" />
 <meta name="author" content="Emeka Casper Onwuepe " /> {% endblock meta_tags %} {% block sideNav %}
 <h3 id="">ARTICLES ON {{section}}</h3>
 <input type="text" id="SearchInput" onkeyup="SearchFunction()" placeholder="Search topics" id="myInput">

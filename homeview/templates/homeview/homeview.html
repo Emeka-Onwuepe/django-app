@@ -13,9 +13,14 @@
     <link rel="apple-touch-icon" href="{% static 'CSS/logo.png' %}">
     <link rel="icon" href="{% static 'CSS/logo.png' %}" type="image/png"> {% block meta_tags %}
     <title>ILLUMEPEDIA</title>
-    <meta name="description" content=" " />
+    <meta name="description" content="An Illuminating encyclopedia. Illuminate your mind with valid data. Knowledge has no bound." />
     <meta name="keywords" content=" " />
-    <meta name="author" content="Emeka Casper Onwuepe " /> {% endblock meta_tags %}
+    <meta name="author" content="Emeka Casper Onwuepe " />
+    <meta property="og:url" content="{{request.build_absolute_uri}}" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Illumepedia" />
+    <meta property="og:description" content="An Illuminating encyclopedia. Illuminate your mind with valid data, knowledge has no bound." />
+    <meta property="og:image" content="{% static 'CSS/logo.png' %}" />{% endblock meta_tags %}
 </head>
 
 <body>

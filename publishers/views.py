@@ -23,11 +23,11 @@ def register(request):
             first_name=form.cleaned_data["first_name"]
             last_name=form.cleaned_data["last_name"]
             email=form.cleaned_data["email"]
+            send = send_mail("Hello Boss", f"There is a new publisher at Illumpedia. Email: {email}", email, [
+                         'pascalemy2010@gmail.com'], fail_silently=False,)
             user=form.save()
             Publisher.objects.create(account=user,first_name=first_name,
             last_name=last_name,section=section,description=description)
-            send = send_mail("Hello Boss", f"There is a new publisher at Illumpedia. Email: {email}", email, [
-                         'pascalemy2010@gmail.com'], fail_silently=True,)
             return HttpResponseRedirect(reverse("login:loginView"))
         else:
                 form=CreateUserForm(request.POST)
