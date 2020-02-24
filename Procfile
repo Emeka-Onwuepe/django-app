@@ -1,1 +1,1 @@
-web: gunicorn MAGAZINE.wsgi
+web: gunicorn Magazine.wsgi
