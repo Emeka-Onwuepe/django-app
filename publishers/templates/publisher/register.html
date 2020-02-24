@@ -1,4 +1,4 @@
-{% load static %} {% load static %}
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,21 +6,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" type="text/css" href="{% static
-            'CSS/publishingdesign.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'CSS/publishingdesign.css' %}">
     <link rel="shortcut icon" href="{% static 'CSS/logo.png' %}" type="image/png">
     <link rel="apple-touch-icon" href="{% static 'CSS/logo.png' %}">
     <link rel="icon" href="{% static 'CSS/logo.png' %}" type="image/png">
     <title>ILLUMEPEDIA</title>
-    <meta name="author" content="Emeka Casper Onwuepe" />
+    <meta name="author" content="Emeka Casper Onwuepe " />
 </head>
 
 <body>
     <div class="Bigwrapper">
         <header>
             <section class="menu">
-                <div id="logo-div"> <img class="logo" src="{% static
-                            'CSS/logo.png' %}" alt="logo" width="100%"> </div>
+                <div id="logo-div"> <img class="logo" src="{% static 'CSS/logo.png' %}" alt="logo" width="100%"> </div>
                 <h3 class="fixing">ILLUMEPEDIA</h3>
                 <nav id="nav" class="nav">
                     {% block nav %}
@@ -45,28 +43,24 @@
                     </div>
                     {% endfor %}
                     <div id="extradata">
-                        <label for="section" style="display:
-                                block;padding-top:5px">Select Section</label>
+                        <label for="section" style="display: block;padding-top:5px">Select Section</label>
                         <select name="section" id="section">
-                                <option>----------</option>
-                                {% for section in sections %}
-                                <option value="{{section.id}}">{{section}}</option>
-                                {% endfor %}
-                            </select>
-                        <label for="description" style="display:
-                                block;padding-top:5px">Describe Yourself</label>
+                            <option value="">-----------</option>
+                            {% for section in sections  %}
+                            <option value="{{section.id}}">{{section}}</option>
+                            {% endfor %}
+                        </select>
+                        <label for="description" style="display: block;padding-top:5px">Describe Yourself</label>
                         <textarea name="description" maxlength="150" id="" cols="" rows="3" required></textarea>
                         <ul>
                             <li>Describe yourself with a third person pronoun starting with your full name.</li>
                             <li> It should not be more than 150 letters</li>
-                            <li>This will be displayed below all your articles
-                            </li>
+                            <li>This will be displayed below all your articles</li>
                             <li>You can add any of your social media handle</li>
                         </ul>
                     </div>
 
-                    <input class="submitButton" type="submit" value="SIGN
-                            UP">
+                    <input class="submitButton" type="submit" value="SIGN UP">
                 </form>
             </fieldset>
             {% endblock main %}
