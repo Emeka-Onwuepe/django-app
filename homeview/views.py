@@ -4,7 +4,7 @@ from publishers.models import Section, Publisher, Article, Sections
 from django.core.mail import send_mail
 from django.contrib import messages
 from django.conf import settings
- 
+
 
 def homeView(request):
     section = Section.objects.filter(article__publish=True)
@@ -63,7 +63,7 @@ def sendEmail(request):
         message = request.POST["message"]
         Message = f"Hello, my name is {full_name}, my phone number and email address are {phone_number}, {email} respectively. \r\n\n {message}"
         # send_mail(subject,Message,email,['pascalemy2010@gmail.com'],fail_silently=False,)
-        send = send_mail(subject, Message, email, [
+        send = send_mail(subject, Message, "Illumepedia", [
                          'pascalemy2010@gmail.com'], fail_silently=False,)
         if send:
             messages.add_message(request, messages.INFO,
