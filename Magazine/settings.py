@@ -136,12 +136,21 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
 # email settings
-EMAIL_BACKEND = emailinfo.EMAIL_BACKEND
-EMAIL_HOST = emailinfo.EMAIL_HOST
-EMAIL_USE_TLS = emailinfo.EMAIL_USE_TLS
-EMAIL_PORT = emailinfo.EMAIL_PORT
-EMAIL_HOST_USER = emailinfo.EMAIL_HOST_USER
-EMAIL_HOST_PASSWORD = emailinfo.EMAIL_HOST_PASSWORD
+# EMAIL_BACKEND = emailinfo.EMAIL_BACKEND
+# EMAIL_HOST = emailinfo.EMAIL_HOST
+# EMAIL_USE_TLS = emailinfo.EMAIL_USE_TLS
+# EMAIL_PORT = emailinfo.EMAIL_PORT
+# EMAIL_HOST_USER = emailinfo.EMAIL_HOST_USER
+# EMAIL_HOST_PASSWORD = emailinfo.EMAIL_HOST_PASSWORD
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+# EMAIL_HOST_USER = "pascalemy2019@gmail.com"
+# EMAIL_HOST_PASSWORD = "casdonmystery1957"
+EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD =  os.environ.get("EMAIL_HOST_PASSWORD")
+
 
 
 # # AWS settings
