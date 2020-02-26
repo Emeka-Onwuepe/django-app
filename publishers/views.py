@@ -24,7 +24,7 @@ def register(request):
             first_name = form.cleaned_data["first_name"]
             last_name = form.cleaned_data["last_name"]
             email = form.cleaned_data["email"]
-            send = send_mail("Hello Boss", f"There is a new publisher at Illumpedia. Email: {email}", "Illumepedia", [
+            send_mail("Hello Boss", f"There is a new publisher at Illumpedia. Email: {email}", "Illumepedia", [
                 'pascalemy2010@gmail.com'], fail_silently=False,)
             user = form.save()
             Publisher.objects.create(account=user, first_name=first_name,
