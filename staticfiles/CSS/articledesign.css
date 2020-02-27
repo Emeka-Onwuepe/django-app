@@ -174,6 +174,7 @@ body {
 #sideNav h3 {
     font-size: 16px;
     text-align: center;
+    padding: 0px 5px;
 }
 
 #sideNav h3 a {
@@ -216,13 +217,15 @@ p {
 }
 
 h1,
-figcaption em {
+figcaption em,
+.article p a {
     font-size: 18px;
 }
 
 h2 {
     font-size: 18px;
     color: #f9f9f9;
+    padding: 8px 1px;
 }
 
 li {
@@ -249,7 +252,8 @@ a {
 .mainhead h1 {
     color: white;
     word-spacing: 4px;
-    font-weight: 2000
+    font-weight: 2000;
+    padding: 5px 0px;
 }
 
 .article,
@@ -290,8 +294,20 @@ a {
     color: black;
 }
 
+.article h2,
+.article h3 {
+    margin-bottom: 5px;
+}
+
 .article p {
     margin-top: 0%;
+    margin-bottom: 3px;
+}
+
+.article li {
+    list-style: inherit;
+    margin-left: 3%;
+    font-size: 18px;
 }
 
 .articleInnerBox {
@@ -600,7 +616,9 @@ footer span {
     }
     #footer,
     footer span,
-    figcaption em {
+    figcaption em,
+    .article li,
+    .article p a {
         font-size: 20px;
     }
     h1 {
@@ -627,7 +645,9 @@ footer span {
         width: 270px;
     }
     p,
-    figcaption em {
+    figcaption em,
+    .article li,
+    .article p a {
         font-size: 16px;
     }
     #footer,

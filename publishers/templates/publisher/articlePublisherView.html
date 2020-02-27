@@ -28,21 +28,26 @@
     </figure>
     {% endif %}
     <section>
-        <h2>{{article.sub_heading}}</h2>
-        {{article.body_text|safe}}
+        {% if article.sub_heading %}
+        <h2 class="">{{article.sub_heading}}</h2>
+        {% endif %} {{article.body_text|safe}}
     </section>
     {% for section in sections %}
-    <h3>{{section.sub_heading}}</h3>
-    {% if section.Sub_section_image %}
-    <figure class="">
-        <img src="{{section.Sub_section_image.url}}" alt="">
-        <figcaption><em>Image Source: {{section.image_source}}</em></figcaption>
-    </figure>
-    {% endif %}
     <section>
-        {{section.body_text|safe}}
+        <h3>{{section.sub_heading}}</h3>
+        {% if section.Sub_section_image %}
+        <figure style="margin-bottom: 10px;" class="">
+            <img src="{{section.Sub_section_image.url}}" alt="">
+            <figcaption><em>Image Source: {{section.image_source}}</em></figcaption>
+        </figure>{% endif %} {{section.body_text|safe}}
     </section>
-    {% endfor %} {% for publisher in article.publisher.all %}
+    {% endfor %}
+    <p>Published By: {% for publisher in article.publisher.all %}
+        <a href="">{{publisher}} </a> {% endfor %}
+    </p>
+    <p class="pub_date">{{article.mod_date}}</p>
+
+    {% for publisher in article.publisher.all %}
     <p class="Pub_discription">{{publisher.description}}</p>
     {% endfor %}
     <a target="blank" href="{% url 'homeview:articleView' article.id article.title_slug %}">VIEW IN MAIN SITE</a>

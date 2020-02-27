@@ -27,6 +27,10 @@ def register(request):
             send_mail("Hello Boss", f"There is a new publisher at Illumpedia. Email: {email}", "Illumepedia", [
                 'pascalemy2010@gmail.com'], fail_silently=False,)
             user = form.save()
+            if not user:
+                sections = Section.objects.all()
+                form = CreateUserForm()
+                return render(request, "publisher/register.html", {"form": CreateUserForm(), "sections": sections})
             Publisher.objects.create(account=user, first_name=first_name,
                                      last_name=last_name, section=section, description=description)
             return HttpResponseRedirect(reverse("login:loginView"))

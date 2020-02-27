@@ -225,8 +225,20 @@ main fieldset .controlBox {
     color: black;
 }
 
+.article h2,
+.article h3 {
+    margin-bottom: 5px;
+}
+
 .article p {
     margin-top: 0%;
+    margin-bottom: 3px;
+}
+
+.article li {
+    list-style: inherit;
+    margin-left: 2%;
+    font-size: 18px;
 }
 
 .article img {
@@ -240,6 +252,13 @@ main fieldset .controlBox {
     overflow-y: scroll;
     padding: 8px 10px 8px 20px;
     background-color: white;
+}
+
+.divEditor li {
+    color: black;
+    font-size: 16px;
+    margin: 0px;
+    margin-left: 20px;
 }
 
 .subsection {
@@ -375,7 +394,8 @@ h1 {
 }
 
 h2,
-figcaption em {
+figcaption em,
+.article p a {
     font-size: 18px;
 }
 
@@ -470,6 +490,9 @@ figcaption em {
     .article img {
         height: 400px;
     }
+    .article li {
+        font-size: 20px;
+    }
     .controlList {
         margin-left: 3%;
     }
@@ -484,7 +507,8 @@ figcaption em {
     label,
     .submitButton,
     .controlBox form button,
-    figcaption em {
+    figcaption em,
+    .article p a {
         font-size: 20px;
     }
     h1 {
@@ -504,7 +528,9 @@ figcaption em {
     label,
     .submitButton,
     .controlBox form button,
-    figcaption em {
+    figcaption em,
+    .article li,
+    .article p a {
         font-size: 16px;
     }
     .article .Pub_discription {

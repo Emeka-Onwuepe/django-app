@@ -1,18 +1,20 @@
 {% extends 'homeview/homeview.html' %} {% block meta_tags %} {% load static %}
 <title>ILLUMEPEDIA</title>
 <meta name="description" content="{{article.description}}" />
-<meta name="keywords" content="{{article.keywords}} " /> {% for publisher in article.publisher.all %}
-<meta name="author" content="{{publisher}} " /> {% endfor %}
+<meta name="keywords" content="{{article.keywords}}" /> {% for publisher in article.publisher.all %}
+<meta name="author" content="{{publisher}}" /> {% endfor %}
 <meta property="og:url" content="{{request.build_absolute_uri}}" />
 <meta property="og:type" content="article" />
 <meta property="og:title" content="{{article.title}}" />
 <meta property="og:description" content="{{article.description}}" />
 <meta property="og:image" content="{{article.image.url}}" /> {% endblock meta_tags %} {% block sideNav %}
-<h3 id=""><a href="{% url 'homeview:sectionView' section %}">ARTICLES ON {{section}}</a></h3>
+<h3 id=""><a href="{% url 'homeview:sectionView' section %}">ARTICLES ON
+        {{section}}</a></h3>
 <input type="text" id="SearchInput" onkeyup="SearchFunction()" placeholder="Search topics" id="myInput">
 <ul id="sideNavUL">
     {% for articles in section.article_set.all %} {% if articles.publish %}
-    <li><a class="a" href="{% url 'homeview:articleView' articles.id articles.title_slug %}">{{articles}}</a></li>
+    <li><a class="a" href="{% url 'homeview:articleView' articles.id
+            articles.title_slug %}">{{articles}}</a></li>
     {% endif %} {% endfor %}
 </ul>
 {% endblock sideNav %} {% block mainHeading %}
@@ -63,8 +65,7 @@
         <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text={{article.description}}" data-size="">
             Tweet
         </a>
-        <a href="whatsapp://send?text=http://webdevelopmentscripts.com"> <img id="whatsappicon" src="{% static 'CSS/whatsapp.png' %}" alt=""></a>
-
+        <a href="whatsapp://send?text={{article.description}}"> <img id="whatsappicon" src="{% static 'CSS/whatsapp.png' %}" alt=""></a>
     </div>
     <!-- <div class="fb-share-button" data-href="{{request.build_absolute_uri}}" data-layout="button_count" data-size="small"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{request.build_absolute_uri}}&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></div> -->
     <section>
@@ -73,14 +74,13 @@
         {% endif %} {{article.body_text|safe}}
     </section>
     {% for section in sections %}
-    <h3>{{section.sub_heading}}</h3>
-    {% if section.Sub_section_image %}
-    <figure class="">
-        <img src="{{section.Sub_section_image.url}}" alt="">
-        <figcaption><em>Image Source: {{section.image_source}}</em></figcaption>
-    </figure>{% endif %}
     <section>
-        {{section.body_text|safe}}
+        <h3>{{section.sub_heading}}</h3>
+        {% if section.Sub_section_image %}
+        <figure style="margin-bottom: 10px;" class="">
+            <img src="{{section.Sub_section_image.url}}" alt="">
+            <figcaption><em>Image Source: {{section.image_source}}</em></figcaption>
+        </figure>{% endif %} {{section.body_text|safe}}
     </section>
     {% endfor %}
     <p>Published By: {% for publisher in article.publisher.all %}
@@ -95,7 +95,7 @@
         <div class="fb-share-button" data-href="{{request.build_absolute_uri}}" data-layout="button_count" data-size="small">
         </div> <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text={{article.description}}" data-size="">
             Tweet</a>
-        <a href="whatsapp://send?text=http://webdevelopmentscripts.com"> <img id="whatsappicon" src="{% static 'CSS/whatsapp.png' %}" alt=""></a>
+        <a href="whatsapp://send?text={{article.description}}"> <img id="whatsappicon" src="{% static 'CSS/whatsapp.png' %}" alt=""></a>
     </div>
     <!-- <div class="fb-share-button" data-href="{{request.build_absolute_uri}}" data-layout="button_count" data-size="small"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{request.build_absolute_uri}}&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></div> -->
 </article>
@@ -104,7 +104,8 @@
     <h2 style="text-align:center;color:#f9f9f9;text-shadow: 2px 1px black;">Most Viewed Articles</h2>
     {% for article in mostviewed %} {% if article.publish %}
     <section class="articleDisplayBox">
-        <h3><a href="{% url 'homeview:articleView' article.id article.title_slug %}">{{article}}</a></h3>
+        <h3><a href="{% url 'homeview:articleView' article.id article.title_slug
+                %}">{{article}}</a></h3>
         <img class="" src="{{article.image.url}}" alt=""> {{article.bodySnippet|safe}}
         <p>Published By {% for publisher in article.publisher.all %}
             <a href="">{{publisher}} </a> {% endfor %}
