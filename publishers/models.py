@@ -49,7 +49,7 @@ class Article(models.Model):
 
     def bodySnippet(self):
         body= self.body_text[:120]
-        bodySnippet= re.sub(r"\s\w+$|(<strong>|</strong>|<em>|</em>|<b>|</b>|<i>|</i>)","",body)
+        bodySnippet= re.sub(r"\s\w+$|(<strong>|</strong>|<em>|</em>|<b>|</b>|<i>|</i>|<u>|</u>|<a.+?>|</a>)","",body)
         return f'{bodySnippet} ....' 
     def __str__(self):
         return self.title
