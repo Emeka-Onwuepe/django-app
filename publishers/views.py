@@ -3,6 +3,7 @@ from django.http import Http404, HttpResponseRedirect, HttpResponse
 from .models import Section, Publisher, Article, Sections
 from django.contrib.auth.models import User
 from django.contrib.auth import logout
+from django.contrib.auth.forms import AuthenticationForm
 from .form import CreateUserForm, EditUserForm, EditPublisherForm, SectionForm, ArticleCreationForm, ArticleModelForm, PublishArticleForm
 from django.forms import formset_factory, modelformset_factory, inlineformset_factory
 from django.contrib.auth.decorators import login_required
@@ -10,6 +11,7 @@ from django.contrib import messages
 from django import forms
 import re
 from django.core.mail import send_mail
+
 # Create your views here.
 
 
@@ -33,7 +35,9 @@ def register(request):
                 return render(request, "publisher/register.html", {"form": CreateUserForm(), "sections": sections})
             Publisher.objects.create(account=user, first_name=first_name,
                                      last_name=last_name, section=section, description=description)
-            return HttpResponseRedirect(reverse("login:loginView"))
+           # return HttpResponseRedirect(reverse("login:loginView"))
+            form=AuthenticationForm()
+            return render(request,"login/login.html",{"form":form})
         else:
             form = CreateUserForm(request.POST)
             sections = Section.objects.all()
