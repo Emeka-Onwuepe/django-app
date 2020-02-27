@@ -13,8 +13,7 @@
 <input type="text" id="SearchInput" onkeyup="SearchFunction()" placeholder="Search topics" id="myInput">
 <ul id="sideNavUL">
     {% for articles in section.article_set.all %} {% if articles.publish %}
-    <li><a class="a" href="{% url 'homeview:articleView' articles.id
-            articles.title_slug %}">{{articles}}</a></li>
+    <li><a class="a" href="{% url 'homeview:articleView' articles.id articles.title_slug %}">{{articles}}</a></li>
     {% endif %} {% endfor %}
 </ul>
 {% endblock sideNav %} {% block mainHeading %}
