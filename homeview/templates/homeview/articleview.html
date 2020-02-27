@@ -64,7 +64,7 @@
         <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text={{article.description}}" data-size="">
             Tweet
         </a>
-        <a href="whatsapp://send?text={{article.description}}"> <img id="whatsappicon" src="{% static 'CSS/whatsapp.png' %}" alt=""></a>
+        <a href="whatsapp://send?text={{request.build_absolute_uri}}"> <img id="whatsappicon" src="{% static 'CSS/whatsapp.png' %}" alt=""></a>
     </div>
     <!-- <div class="fb-share-button" data-href="{{request.build_absolute_uri}}" data-layout="button_count" data-size="small"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{request.build_absolute_uri}}&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></div> -->
     <section>
@@ -94,7 +94,7 @@
         <div class="fb-share-button" data-href="{{request.build_absolute_uri}}" data-layout="button_count" data-size="small">
         </div> <a class="twitter-share-button" href="https://twitter.com/intent/tweet?text={{article.description}}" data-size="">
             Tweet</a>
-        <a href="whatsapp://send?text={{article.description}}"> <img id="whatsappicon" src="{% static 'CSS/whatsapp.png' %}" alt=""></a>
+        <a href="whatsapp://send?text={{request.build_absolute_uri}}"> <img id="whatsappicon" src="{% static 'CSS/whatsapp.png' %}" alt=""></a>
     </div>
     <!-- <div class="fb-share-button" data-href="{{request.build_absolute_uri}}" data-layout="button_count" data-size="small"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{request.build_absolute_uri}}&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a></div> -->
 </article>
