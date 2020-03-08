@@ -79,7 +79,7 @@ addSection.addEventListener("click", function() {
 let fileInputs = document.querySelectorAll("input[type='file']")
 let verify = true
 let allowedImageSize = 150
-console.log(fileInputs)
+    //console.log(fileInputs)
 for (const images of fileInputs) {
     images.addEventListener("change", function() {
         let image = this.files[0]
@@ -163,6 +163,21 @@ for (const button of buttons) {
         if (cmd === "createLInk") {
             let url = prompt("Enter a URl:", "https://")
             document.execCommand(cmd, false, url)
+        } else if (cmd === "raisenumber") {
+            let selected = window.getSelection().toString()
+            if (window.Selection && parseInt(selected)) {
+                document.execCommand("superscript", false, null)
+                document.execCommand("createLInk", false, "#end_notes")
+            }
+        } else if (cmd === "removenumber") {
+            let selected = window.getSelection().toString()
+            if (window.Selection && parseInt(selected)) {
+                let intId = parseInt(selected)
+                document.execCommand("unlink", false, null)
+                document.execCommand("superscript", false, null)
+                window.getSelection().deleteFromDocument()
+                window.getSelection().removeAllRanges()
+            }
         } else {
             document.execCommand(cmd, false, null)
         }
@@ -181,6 +196,18 @@ for (const divEditor of divEditors) {
         selection.getRangeAt(0).insertNode(document.createTextNode(paste))
         event.preventDefault()
     })
+
+    divEditor.addEventListener("keydown", function(event) {
+        let keyCode = event.which || event.keyCode
+        if (keyCode == 32) {
+            document.execCommand("unlink", false, null)
+            let sup = window.getSelection().focusNode.parentNode.nodeName
+            if (sup === "SUP") {
+                document.execCommand("superscript", false, null)
+            }
+            //console.log(window.getSelection())
+        }
+    })
 }
 
 let headingSeletor = document.querySelector("#heading")
@@ -189,3 +216,32 @@ headingSeletor.addEventListener("change", function() {
     document.execCommand("formatBlock", false, `<${cmd}>`)
     this.selectedIndex = 0
 })
+
+
+ToggleReference()
+
+function ToggleReference() {
+    let endNotes = document.querySelector("#end_notes")
+    let addReference = document.querySelector("#addReference")
+    endNotes.style.display = "none"
+    addReference.addEventListener("click", () => {
+        if (endNotes.style.display == "none") {
+            endNotes.style.display = "block"
+        } else {
+            endNotes.style.display = "none"
+        }
+    })
+}
+setEndnotes()
+
+function setEndnotes() {
+    let compare = document.querySelector("#compare").innerHTML.toLowerCase()
+    let addReference = document.querySelector("#addReference")
+    let pretext = addReference.innerHTML
+    let compareWith = "history"
+    if (compare == compareWith) {
+        addReference.innerHTML = ` ${pretext} End Notes`
+    } else {
+        addReference.innerHTML += `${pretext} References`
+    }
+}

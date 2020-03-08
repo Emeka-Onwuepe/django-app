@@ -35,7 +35,15 @@ class ArticleModelForm(forms.ModelForm):
     class Meta:
         """Meta definition for ArticleModelform."""
         model = Article
-        fields = ('title','title_slug','image','image_source','sub_heading','body_text')
+        fields = ('title','title_slug','image','image_source','image_description','sub_heading','body_text')
+        
+class ReferenceForm(forms.ModelForm):
+    """Form definition for ArticleModel."""
+    class Meta:
+        """Meta definition for ArticleModelform."""
+        model = Article
+        fields = ("references", )
+
 
 
 class SectionForm(forms.ModelForm):
@@ -43,7 +51,7 @@ class SectionForm(forms.ModelForm):
     class Meta:
         """Meta definition for Sectionform."""
         model = Sections
-        fields = ('Sub_section_image','image_source','sub_heading','body_text')
+        fields = ('Sub_section_image','image_source','image_description','sub_heading','body_text')
     
     
 

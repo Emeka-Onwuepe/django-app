@@ -9,6 +9,7 @@ import re
 
 class Section(models.Model):
     Name= models.CharField("Name", max_length=156)
+    description= models.TextField(default="null",blank=False)
     def __str__(self):
         return self.Name
     class Meta:
@@ -39,6 +40,7 @@ class Article(models.Model):
     keywords= models.CharField(max_length=255,default="null")
     image=models.ImageField(null=True)
     image_source= models.CharField(max_length=255, null=True, blank=True)
+    image_description= models.CharField(max_length=255,default='image', blank=True)
     sub_heading = models.CharField(max_length=255,null=True,blank=True)
     body_text= models.TextField()
     pub_date= models.DateTimeField(auto_now_add=True)
@@ -46,6 +48,7 @@ class Article(models.Model):
     publisher= models.ManyToManyField(Publisher)
     view_count= models.IntegerField(default=0)
     publish=models.BooleanField(default=False)
+    references= models.TextField(default="null", null=True, blank=True)
 
     def bodySnippet(self):
         body= self.body_text[:120]
@@ -75,6 +78,7 @@ class Sections(models.Model):
     sub_heading=models.CharField(max_length=255, null=True)
     Sub_section_image= models.ImageField(null=True, blank=True)
     image_source= models.CharField(max_length=255, null=True, blank=True)
+    image_description= models.CharField(max_length=255, default="image", blank=True)
     body_text= models.TextField(null=True)
     class Meta:
         """Meta definition for Sections."""

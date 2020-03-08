@@ -146,7 +146,7 @@ body {
 }
 
 .bannertext p {
-    line-height: 39px;
+    line-height: 38px;
     margin: 2%;
     text-indent: 0%;
 }
@@ -200,7 +200,7 @@ body {
 
 .close {
     position: fixed;
-    top: 98px;
+    top: 115px;
     left: 250px;
     font-size: 36px;
     display: none;
@@ -232,10 +232,15 @@ li {
     list-style: none;
 }
 
-a {
+a,
+a sup {
     text-decoration: none;
     color: #0978c6;
     ;
+}
+
+a sup {
+    font-size: 14px;
 }
 
 .main {
@@ -274,6 +279,7 @@ a {
 .article img {
     width: 100%;
     height: 300px;
+    font-size: 16px;
 }
 
 .article figcaption {
@@ -347,9 +353,10 @@ a {
 } */
 
 .articleDisplayBox img {
-    width: 80%;
+    width: 78%;
     height: 130px;
-    margin: 5px 10%;
+    margin: 5px 11%;
+    font-size: 16px;
 }
 
 .pub_date {
@@ -486,6 +493,14 @@ footer span {
     .article .Pub_discription {
         width: 400px;
     }
+    .articleDisplayBox img {
+        width: 68%;
+        margin: 5px 16%;
+    }
+    .article img {
+        width: 90%;
+        margin: 0px 5%;
+    }
 }
 
 @media screen and (min-width:641px) {
@@ -503,6 +518,10 @@ footer span {
         height: 430px;
         float: left;
         margin: 5px 0.5% 5px 0.5%;
+    }
+    .articleDisplayBox img {
+        width: 78%;
+        margin: 5px 11%;
     }
     .article,
     .articleBox {
@@ -526,6 +545,10 @@ footer span {
     }
     .fb_iframe_widget {
         top: -11px;
+    }
+    .article img {
+        width: 85%;
+        margin: 0px 7.5%;
     }
 }
 
@@ -590,6 +613,8 @@ footer span {
     }
     .article img {
         height: 400px;
+        width: 100%;
+        margin: 0px;
     }
     .articleDisplayBox {
         width: 49%;

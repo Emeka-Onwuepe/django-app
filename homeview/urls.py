@@ -9,4 +9,5 @@ urlpatterns = [
     path('sendEmail',views.sendEmail,name="sendEmailView"),
     path('<str:section>',views.sectionView,name="sectionView"),
     path('<int:article_id>/<slug:article_slug>',views.articleView,name="articleView"),
+    path('publisher/<int:publisher_id>/publisherPage', views.publisherPage, name="publisherPage"),
 ] 

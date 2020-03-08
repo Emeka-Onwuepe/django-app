@@ -34,6 +34,8 @@ def articleView(request, article_id, article_slug):
     article = Article.objects.get(id=article_id)
     article_sections = Sections.objects.filter(article=article)
     section = Section.objects.get(article=article)
+    nullvalue = "<p>null</p>" or "null"
+    history= "HISTORY"
     article.view_count += 1
     article.save(skip_md=False)
     mostViewed = Article.objects.filter(section=section).filter(
@@ -43,7 +45,7 @@ def articleView(request, article_id, article_slug):
         return render(request, "homeview/pagenotfound.html", {
             "sections": article_sections, "section": section, "mostviewed": mostViewed})
     return render(request, "homeview/articleview.html", {"article": article,
-                                                         "sections": article_sections, "section": section, "mostviewed": mostViewed})
+                                                         "sections": article_sections, "section": section, "mostviewed": mostViewed, "nullvalue": nullvalue,"HISTORY":history})
 
 
 def sectionView(request, section):
@@ -51,6 +53,12 @@ def sectionView(request, section):
     mostViewed = Article.objects.filter(section=section).filter(
         publish=True).order_by("-view_count")[:10]
     return render(request, "homeview/sectionView.html", {"section": section, "mostviewed": mostViewed})
+
+
+def publisherPage(request, publisher_id):
+    publisher = Publisher.objects.get(id=publisher_id)
+    article = Article.objects.filter(publisher=publisher)
+    return render(request, "homeview/publisherPage.html", {"publisher": publisher, "article": article})
 
 
 def sendEmail(request):

@@ -1,11 +1,11 @@
 {% extends 'homeview/homeview.html' %} {% block meta_tags %} {% load static %}
 <title>ILLUMEPEDIA</title>
-<meta name="description" content="Article on {{section}}. Illuminate your mind with valid data, knowledge has no bound." />
+<meta name="description" content="{{section.description}}" />
 <meta name="keywords" content=" " />
 <meta property="og:url" content="{{request.build_absolute_uri}}" />
 <meta property="og:type" content="article" />
 <meta property="og:title" content="Illumepedia" />
-<meta property="og:description" content="Article on {{section}}. Illuminate your mind with valid data, knowledge has no bound." />
+<meta property="og:description" content="{{section.description}}" />
 <meta property="og:image" content="{% static 'CSS/logo.png' %}" />
 <meta name="author" content="Emeka Casper Onwuepe " /> {% endblock meta_tags %} {% block sideNav %}
 <h3 id="">ARTICLES ON {{section}}</h3>
@@ -25,9 +25,9 @@
         {% for article in section.article_set.all %} {% if article.publish %}
         <section class="articleDisplayBox">
             <h3><a href="{% url 'homeview:articleView' article.id article.title_slug %}">{{article}}</a></h3>
-            <img class="" src="{{article.image.url}}" alt=""> {{article.bodySnippet|safe}}
+            <img class="" src="{{article.image.url}}" alt="{{article.image_description}}"> {{article.bodySnippet|safe}}
             <p>Published By {% for publisher in article.publisher.all %}
-                <a href="">{{publisher}} </a> {% endfor %}
+                <a href="{% url 'homeview:publisherPage' publisher.id %}">{{publisher}} </a> {% endfor %}
             </p>
             <p class="pub_date">{{article.mod_date}}</p>
         </section>
@@ -40,9 +40,9 @@
     {% for article in mostviewed %} {% if article.publish %}
     <section class="articleDisplayBox">
         <h3><a href="{% url 'homeview:articleView' article.id article.title_slug %}">{{article}}</a></h3>
-        <img class="" src="{{article.image.url}}" alt=""> {{article.bodySnippet|safe}}
+        <img class="" src="{{article.image.url}}" alt="{{article.image_description}}"> {{article.bodySnippet|safe}}
         <p>Published By {% for publisher in article.publisher.all %}
-            <a href="">{{publisher}} </a> {% endfor %}
+            <a href="{% url 'homeview:publisherPage' publisher.id %}">{{publisher}} </a> {% endfor %}
         </p>
         <p class="pub_date">{{article.mod_date}}</p>
     </section>

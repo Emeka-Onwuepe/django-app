@@ -24,7 +24,7 @@
         <h3><a href="{% url 'homeview:articleView' article.id article.title_slug %}">{{article}}</a></h3>
         {{article.bodySnippet|safe}}
         <p>Published By {% for publisher in article.publisher.all %}
-            <a href="">{{publisher}} </a> {% endfor %}
+            <a href="{% url 'homeview:publisherPage' publisher.id %}">{{publisher}} </a> {% endfor %}
         </p>
         <p class="pub_date">{{article.mod_date}}</p>
     </section>

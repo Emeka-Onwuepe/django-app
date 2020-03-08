@@ -108,15 +108,17 @@
             closeButton.style.display = "none";
             stickSideBar();
         }
-        if (x_axis <= 999) {
+        if (x_axis <= 999 && document.activeElement.id !== "SearchInput") {
             fixing.removeAttribute("style");
             fixing2.removeAttribute("style")
             sideNav.removeAttribute("style");
         } else {
             displayHead();
-
         }
-        checkSideNav()
+        if (document.activeElement.id !== "SearchInput") {
+            checkSideNav()
+        }
+
     }
 
     document.getElementsByTagName("BODY")[0].onscroll = function() {
@@ -359,4 +361,26 @@
 
         }
 
+    }
+
+    setEndnotes()
+
+    function setEndnotes() {
+        let compare = document.querySelector("#compare").innerHTML.toLowerCase()
+        let refs = document.querySelector("#refs")
+        let compareWith = "history"
+        if (compare == compareWith) {
+            refs.innerHTML = "End Notes"
+        } else {
+            refs.innerHTML = "References"
+        }
+    }
+
+    offsetTop()
+
+    function offsetTop() {
+        window.addEventListener("hashchange", function(e) {
+            window.scrollTo(window.scrollX, window.scrollY - 103);
+            history.replaceState(null, null, " ")
+        });
     }

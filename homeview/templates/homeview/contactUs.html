@@ -41,7 +41,8 @@
         <p style="color: red">{{ message }}</p>
         {% endfor %} {% endif %}
         <button style="background-color: gray" type="submit" name="submit" class="submitButton" disabled id="submit">SEND</button>
-        <p class="help">The above button will only be clickable when there is no empty field and no error in any field. </p>
+        <p class="help">The above button will only be clickable when there is no empty field and no error in any field.
+        </p>
     </form>
 </fieldset>
 {% endblock main %} {% block ads %} {% endblock ads %} {% block mostviewed %}
@@ -52,7 +53,7 @@
         <h3><a href="{% url 'homeview:articleView' article.id article.title_slug %}">{{article}}</a></h3>
         {{article.bodySnippet|safe}}
         <p>Published By {% for publisher in article.publisher.all %}
-            <a href="">{{publisher}} </a> {% endfor %}
+            <a href="{% url 'homeview:publisherPage' publisher.id %}">{{publisher}} </a> {% endfor %}
         </p>
         <p class="pub_date">{{article.mod_date}}</p>
     </section>

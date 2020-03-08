@@ -4,7 +4,7 @@ from .models import Section, Publisher, Article, Sections
 from django.contrib.auth.models import User
 from django.contrib.auth import logout
 from django.contrib.auth.forms import AuthenticationForm
-from .form import CreateUserForm, EditUserForm, EditPublisherForm, SectionForm, ArticleCreationForm, ArticleModelForm, PublishArticleForm
+from .form import CreateUserForm, EditUserForm, EditPublisherForm, SectionForm, ArticleCreationForm, ArticleModelForm, PublishArticleForm, ReferenceForm
 from django.forms import formset_factory, modelformset_factory, inlineformset_factory
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
@@ -36,8 +36,8 @@ def register(request):
             Publisher.objects.create(account=user, first_name=first_name,
                                      last_name=last_name, section=section, description=description)
            # return HttpResponseRedirect(reverse("login:loginView"))
-            form=AuthenticationForm()
-            return render(request,"login/login.html",{"form":form})
+            form = AuthenticationForm()
+            return render(request, "login/login.html", {"form": form})
         else:
             form = CreateUserForm(request.POST)
             sections = Section.objects.all()
@@ -122,21 +122,25 @@ def ArticleCreationView(request, username, article_id):
         Article, Sections, form=SectionForm, extra=2)
     SectionForms = formsets(instance=article)
     form = ArticleModelForm(instance=article)
+    referenceForm = ReferenceForm(instance=article)
     if request.method == "POST":
         form = ArticleModelForm(
             data=request.POST, files=request.FILES, instance=article)
         SectionForms = formsets(
             data=request.POST, files=request.FILES, instance=article)
-        if form.is_valid() and SectionForms.is_valid():
+        referenceForm = ReferenceForm(
+            data=request.POST,  instance=article)
+        if form.is_valid() and SectionForms.is_valid() and referenceForm.is_valid():
             form.save()
             SectionForms.save()
+            referenceForm.save()
             return HttpResponseRedirect(reverse('publisher:articlePublisherView',
                                                 kwargs={"article_id": article.id, "article_slug": article.title_slug}))
         else:
             return render(request, 'publisher/createarticle.html', {'form': form,
-                                                                    'sectionsForm': SectionForms, 'article': article, 'user': user})
+                                                                    'sectionsForm': SectionForms, 'article': article, 'user': user, 'referenceForm': referenceForm})
     return render(request, 'publisher/createarticle.html', {'form': form,
-                                                            'sectionsForm': SectionForms, 'article': article, 'user': user})
+                                                            'sectionsForm': SectionForms, 'article': article, 'user': user, 'referenceForm': referenceForm})
 
 
 @login_required(login_url="login:loginView")
@@ -144,8 +148,9 @@ def articlePublisherView(request, article_id, article_slug):
     article = Article.objects.get(pk=article_id)
     article_sections = Sections.objects.filter(article=article)
     form = PublishArticleForm(instance=article)
+    nullvalue = "<p>null</p>" or "null"
     return render(request, "publisher/articlePublisherView.html",
-                  {"article": article, "sections": article_sections, "form": form})
+                  {"article": article, "sections": article_sections, "form": form, "nullvalue": nullvalue})
 
 
 @login_required(login_url="login:loginView")
@@ -184,8 +189,9 @@ def editView(request, username, article_id):
         Article, Sections, form=SectionForm, extra=1)
     SectionForms = formsets(instance=article)
     form = ArticleModelForm(instance=article)
+    referenceForm = ReferenceForm(instance=article)
     if request.method == "POST":
-        return render(request, "publisher/editview.html", {'form': form, 'sectionsForm': SectionForms, 'article': article})
+        return render(request, "publisher/editview.html", {'form': form, 'sectionsForm': SectionForms, 'article': article, 'referenceForm': referenceForm})
     return HttpResponseRedirect(reverse('publisher:controlView', kwargs={"username": username}))
 
 
@@ -197,6 +203,7 @@ def editPro(request, username, article_id):
         article = Article.objects.get(id=article_id)
         form = ArticleModelForm(
             data=request.POST, files=request.FILES, instance=article)
+        referenceForm = ReferenceForm(data=request.POST, instance=article)
         SectionForms = formsets(
             data=request.POST, files=request.FILES, instance=article)
         if form.is_valid() and SectionForms.is_valid():
@@ -204,10 +211,11 @@ def editPro(request, username, article_id):
             SectionForms.save()
             article.publish = False
             article.save()
+            referenceForm.save()
             return HttpResponseRedirect(reverse('publisher:articlePublisherView',
                                                 kwargs={"article_id": article.id, "article_slug": article.title_slug}))
         else:
-            return render(request, "publisher/editview.html", {'form': form, 'sectionsForm': SectionForms, 'article': article})
+            return render(request, "publisher/editview.html", {'form': form, 'sectionsForm': SectionForms, 'article': article, 'referenceForm': referenceForm})
 
     return HttpResponseRedirect(reverse('publisher:controlView', kwargs={"username": username}))
 

@@ -244,6 +244,7 @@ main fieldset .controlBox {
 .article img {
     width: 100%;
     height: 300px;
+    font-size: 16px;
 }
 
 .divEditor {
@@ -372,9 +373,14 @@ footer span {
     text-indent: 0px;
 }
 
-a {
+a,
+a sup {
     text-decoration: none;
     color: #0978c6;
+}
+
+a sup {
+    font-size: 14px;
 }
 
 p {
@@ -400,6 +406,10 @@ figcaption em,
 }
 
 @media screen and (min-width:481px) {
+    .article img {
+        width: 90%;
+        margin: 0px 5%;
+    }
     .nav {
         right: 7px;
         top: 70px;
@@ -442,6 +452,10 @@ figcaption em,
 }
 
 @media screen and (min-width:641px) {
+    .article img {
+        width: 85%;
+        margin: 0px 7.5%;
+    }
     main fieldset {
         width: 90%;
         padding-left: 10%
@@ -489,6 +503,7 @@ figcaption em,
     }
     .article img {
         height: 400px;
+        width: 100%;
     }
     .article li {
         font-size: 20px;

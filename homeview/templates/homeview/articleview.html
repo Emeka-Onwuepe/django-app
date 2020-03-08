@@ -54,7 +54,7 @@
 <article class="article">
     {% if article.image %}
     <figure class="">
-        <img src="{{article.image.url}}" alt="">
+        <img src="{{article.image.url}}" alt="{{article.image_description}}">
         <figcaption><em>Image Source: {{article.image_source}}</em></figcaption>
     </figure>
     {% endif %}
@@ -77,13 +77,23 @@
         <h3>{{section.sub_heading}}</h3>
         {% if section.Sub_section_image %}
         <figure style="margin-bottom: 10px;" class="">
-            <img src="{{section.Sub_section_image.url}}" alt="">
+            <img src="{{section.Sub_section_image.url}}" alt="{{section.image_description}}">
             <figcaption><em>Image Source: {{section.image_source}}</em></figcaption>
         </figure>{% endif %} {{section.body_text|safe}}
     </section>
-    {% endfor %}
+    {% endfor %} {% ifnotequal article.references nullvalue %}
+    <section id="end_notes">
+        <P style="display: none;" id='compare'>{{article.section}}</P>
+        <h3 id="refs"></h3>
+        {{article.references|safe}}
+    </section>
+    {% endifnotequal %}
+
+
+
     <p>Published By: {% for publisher in article.publisher.all %}
-        <a href="">{{publisher}} </a> {% endfor %}
+        <a href="{% url 'homeview:publisherPage' publisher.id %}">{{publisher}}
+        </a> {% endfor %}
     </p>
     <p class="pub_date">{{article.mod_date}}</p>
 
@@ -105,9 +115,10 @@
     <section class="articleDisplayBox">
         <h3><a href="{% url 'homeview:articleView' article.id article.title_slug
                 %}">{{article}}</a></h3>
-        <img class="" src="{{article.image.url}}" alt=""> {{article.bodySnippet|safe}}
+        <img class="" src="{{article.image.url}}" alt="{{article.image_description}}"> {{article.bodySnippet|safe}}
         <p>Published By {% for publisher in article.publisher.all %}
-            <a href="">{{publisher}} </a> {% endfor %}
+            <a href="{% url 'homeview:publisherPage' publisher.id %}">{{publisher}}
+            </a> {% endfor %}
         </p>
         <p class="pub_date">{{article.mod_date}}</p>
     </section>
