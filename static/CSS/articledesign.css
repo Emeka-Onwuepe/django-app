@@ -146,7 +146,7 @@ body {
 }
 
 .bannertext p {
-    line-height: 38px;
+    line-height: 37.5px;
     margin: 2%;
     text-indent: 0%;
 }
@@ -201,7 +201,7 @@ body {
 .close {
     position: fixed;
     top: 115px;
-    left: 250px;
+    left: 260px;
     font-size: 36px;
     display: none;
 }
