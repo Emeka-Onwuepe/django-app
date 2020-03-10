@@ -76,23 +76,23 @@ addSection.addEventListener("click", function() {
 
 })
 
-let fileInputs = document.querySelectorAll("input[type='file']")
-let verify = true
-let allowedImageSize = 150
-    //console.log(fileInputs)
-for (const images of fileInputs) {
-    images.addEventListener("change", function() {
-        let image = this.files[0]
-        let int = parseInt(image.size / 1024)
-        if (int >= allowedImageSize) {
-            verify = false
-            alert(`You uploaded an image greater than ${allowedImageSize}KB. Please change the image or reduce the image size`)
-        } else {
-            verify = true
-        }
+// let fileInputs = document.querySelectorAll("input[type='file']")
+// let verify = true
+// let allowedImageSize = 150
+//     //console.log(fileInputs)
+// for (const images of fileInputs) {
+//     images.addEventListener("change", function() {
+//         let image = this.files[0]
+//         let int = parseInt(image.size / 1024)
+//         if (int >= allowedImageSize) {
+//             verify = false
+//             alert(`You uploaded an image greater than ${allowedImageSize}KB. Please change the image or reduce the image size`)
+//         } else {
+//             verify = true
+//         }
 
-    }, false)
-}
+//     }, false)
+// }
 
 replaceTextArea()
 
@@ -150,10 +150,10 @@ function processData() {
         console.log(editor.previousElementSibling.innerHTML)
     }
     //send data to the database
-    if (!verify) {
-        alert(`Unable to submit. There is an image(s) higher than ${allowedImageSize}KB in your article.`)
-    }
-    return verify
+    // if (!verify) {
+    //     alert(`Unable to submit. There is an image(s) higher than ${allowedImageSize}KB in your article.`)
+    // }
+    // return verify
 }
 //assign execCommand to buttons onclick
 let buttons = document.querySelectorAll(".tool-btn")
